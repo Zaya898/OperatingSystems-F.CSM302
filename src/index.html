@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multithreaded Sorting Application</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <p class="eyebrow">PROJECT 2 · PROGRAMMING PROJECTS</p>
+      <h1>Multithreaded Sorting Application</h1>
+      <p class="subtitle">Хоёр sorting worker зэрэг ажиллаж, гурав дахь worker хоёр эрэмбэлэгдсэн хэсгийг нэгтгэнэ.</p>
+    </header>
+
+    <section class="panel controls" aria-labelledby="controls-title">
+      <h2 id="controls-title">Туршилтын тохиргоо</h2>
+      <label for="numbers">Бүхэл тоонууд (таслал эсвэл зайгаар тусгаарлана)</label>
+      <textarea id="numbers" rows="2" spellcheck="false">7, 12, 19, 3, 18, 4, 2, 6, 15, 8</textarea>
+      <div class="control-grid">
+        <label>Санамсаргүй өгөгдлийн хэмжээ
+          <input id="array-size" type="number" min="2" max="200" step="1" value="10">
+        </label>
+        <label>Хөдөлгөөний хурд
+          <select id="speed">
+            <option value="700">Удаан</option>
+            <option value="350" selected>Дунд</option>
+            <option value="100">Хурдан</option>
+            <option value="0">Шууд (анимацигүй)</option>
+          </select>
+        </label>
+      </div>
+      <div class="button-row">
+        <button id="random-btn" class="secondary">Санамсаргүй үүсгэх</button>
+        <button id="start-btn">Эхлүүлэх</button>
+        <button id="pause-btn" class="secondary" disabled>Түр зогсоох</button>
+        <button id="reset-btn" class="secondary">Reset</button>
+      </div>
+      <p id="message" class="message" role="status">Бэлэн. Өгөгдлөө оруулаад “Эхлүүлэх” товчийг дарна уу.</p>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>1. Анхны өгөгдөл</h2>
+        <span id="count-label" class="pill">10 элемент</span>
+      </div>
+      <div id="original-view" class="bars" aria-label="Анхны өгөгдлийн дүрслэл"></div>
+      <p class="hint">Өндөр нь тухайн утгыг төлөөлнө. Утгуудын хажууд бодит тоон утга харагдана.</p>
+    </section>
+
+    <section class="thread-grid">
+      <article class="panel thread-panel">
+        <div class="section-heading">
+          <h2>2. Sorting worker 0</h2><span class="pill blue">Эхний хэсэг</span>
+        </div>
+        <p id="worker0-status" class="status">Хүлээж байна</p>
+        <div id="worker0-view" class="bars"></div>
+      </article>
+      <article class="panel thread-panel">
+        <div class="section-heading">
+          <h2>3. Sorting worker 1</h2><span class="pill purple">Хоёр дахь хэсэг</span>
+        </div>
+        <p id="worker1-status" class="status">Хүлээж байна</p>
+        <div id="worker1-view" class="bars"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>4. Merge worker</h2><span class="pill gray">Нэгтгэлт</span>
+      </div>
+      <p id="merge-status" class="status">Хоёр sorting worker дуусахыг хүлээж байна</p>
+      <div id="merge-view" class="bars"></div>
+    </section>
+
+    <section class="panel result-panel">
+      <h2>5. Эцсийн үр дүн</h2>
+      <p id="result" class="result">Эрэмбэлэлт дуусаагүй байна.</p>
+      <p id="verification" class="hint"></p>
+      <div id="metrics" class="metrics"></div>
+    </section>
+
+    <footer>Сургалтын зориулалттай төсөл · UI дүрслэл нь Web Worker-үүдээс ирсэн бодит алхмын мэдээллийг ашиглана.</footer>
+  </main>
+  <script src="workers-code.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
