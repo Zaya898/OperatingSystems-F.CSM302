@@ -34,7 +34,7 @@
 # 1. Төслийг өөрийн desktop-руу татаж авах
 git clone https://github.com/Zaya898/OperatingSystems-F.CSM302.git
 cd OperatingSystems-F.CSM302
-
+```
 ### Ажиллуулах аргууд
 
 | Арга | Алхам |
