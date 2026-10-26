@@ -1,10 +1,12 @@
 # Multithreaded Sorting Application · V-1-6
 
-Хичээл: F.CSM302 Үйлдлийн систем 
-Багийн дугаар: V-1-6
-Сурах бичгийн харгалзах бүлэг: 4-р бүлэг - (Threads & Concurrency) 
-Төслийн нэр: Multithreaded Sorting Application 
-UI дүрслэл: Sorting animation
+---
+
+- **Хичээл:** F.CSM302 Үйлдлийн систем
+- **Багийн дугаар:** V-1-6
+- **Сурах бичгийн харгалзах бүлэг:** 4-р бүлэг - (Threads & Concurrency)
+- **Төслийн нэр:** Multithreaded Sorting Application
+- **UI дүрслэл:** Sorting animation
 
 ## Багийн гишүүд
 
@@ -22,8 +24,25 @@ UI дүрслэл: Sorting animation
 
 ## Дэлгэцийн зураг
 
-![Multithreaded Sorting Application](image.png)
+![Multithreaded Sorting Application](image-1.png)
 
+## Quick Start
 
+**Шаардлага:** **Web Worker** дэмждэг орчин үеийн веб браузер (`Chrome`, `Edge`, `Firefox`, `Safari`). Node.js, компилятор болон нэмэлт сан `npm install` шаардлагагүй (Windows, macOS, Linux дээр ижил ажиллана).
 
+```bash
+# 1. Төслийг татаж авах
+git clone https://github.com/Zaya898/OperatingSystems-F.CSM302.git
+cd OperatingSystems-F.CSM302
 
+### Ажиллуулах аргууд
+
+| Арга | Алхам |
+| :--- | :--- |
+| **Хамгийн хялбар** | `src/index.html` файлыг давхар товшиж браузер дээр шууд нээнэ. |
+| **Локал сервер (Python)** | `cd src && python -m http.server 8000` ажиллуулаад браузерт `http://localhost:8000` хаягаар орно. |
+| **Локал сервер (Node)** | `cd src && npx serve .` командыг ажиллуулна. |
+
+> **Тэмдэглэл:** Нээмэгц сурах бичгийн *Figure 4.27*-ийн жишээ (`7, 12, 19, 3, 18, 4, 2, 6, 15, 8`) автоматаар бэлэн байх ба **Эхлүүлэх** товчийг дарж туршина.
+
+![Figure 4.27](image-1.png)
