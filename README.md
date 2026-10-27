@@ -132,7 +132,7 @@ src/      index.html, styles.css, app.js, workers-code.js
 tests/    test-cases.md
 docs/     Тайлан, Manual, зургууд
  
-​```
+```
 
 ## Мэдэгдэж буй хязгаарлалт
 
