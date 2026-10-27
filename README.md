@@ -20,15 +20,17 @@
 
 ## Зорилго
 
-Бүхэл тоон жагсаалтыг хоёр хэсэгт хувааж, 2 sorting thread болон 1 merge thread ашиглан гүйцэтгэх олон урсгалт эрэмбэлэлтийг (Multithreaded Sorting Application) JavaScript Web Worker ашиглан хэрэгжүүлэх. Thread бүр өөрийн бодит үйлдлийг дүрслэлд илгээх ба эрэмбэлэлт, нэгтгэлтийн явцыг browser дээр Sorting animation-аар алхам алхмаар, интерактив байдлаар бодитоор харуулах юм. Ямар нэгэн нэмэлт суулгац шаардалгүйгээр `src/index.html`-ийг шууд нээж турших боломжтой.
+Бүхэл тоон жагсаалтыг хоёр хэсэгт хувааж, 2 sorting thread-ээр зэрэг эрэмбэлээд 1 merge thread-ээр нэгтгэх олон урсгалт эрэмбэлэлтийг (Multithreaded Sorting Application) JavaScript Web Worker дээр хэрэгжүүлэх. Thread бүр өөрийн бодит үйлдлийг дүрслэлд илгээх бөгөөд эрэмбэлэлт, нэгтгэлтийн явцыг browser дээр Sorting animation-аар хөдөлгөөнт, интерактив байдлаар харуулна. Нэмэлт суулгац шаардахгүй, `src/index.html`-ийг шууд нээж туршиж болно.
 
 ## Дэлгэцийн зураг
 
-![Multithreaded Sorting Application](image.png)
+![Multithreaded Sorting Application](docs/image.png)
 
 ## Quick Start
 
-**Шаардлага:** **Web Worker** дэмждэг орчин үеийн веб браузер (`Chrome`, `Edge`, `Firefox`, `Safari`). Node.js, компилятор болон нэмэлт сан `npm install` шаардлагагүй (Windows, macOS, Linux дээр ижил ажиллана).
+**Шаардлага:** Web Worker дэмждэг орчин үеийн browser (Chrome, Edge, Firefox, Safari). Node.js, compiler, `npm install` шаардлагагүй. Windows, macOS, Linux дээр адил ажиллана.
+
+- **Sorting worker:** Worker бүр Insertion sort-ыг алхам бүрээр (`swap`) гүйцэтгэж, `step` мессежээр дүрслэлд илгээнэ.
 
 ```bash
 # 1. Төслийг өөрийн desktop-руу татаж авах
@@ -39,15 +41,11 @@ cd OperatingSystems-F.CSM302
 
 | Арга | Алхам |
 | :--- | :--- |
-| **Хамгийн хялбар** | `src/index.html` файлыг давхар товшиж browser дээр шууд нээнэ. |
+| **Хамгийн хялбар** | `src/index.html` файл дээр дарж browser дээр шууд нээнэ. |
 | **Локал сервер (Python)** | `cd src && python -m http.server 8000` ажиллуулаад браузерт `http://localhost:8000` хаягаар орно. |
 | **Локал сервер (Node)** | `cd src && npx serve .` командыг ажиллуулна. |
 
-> **Тэмдэглэл:** Нээмэгц үндсэн сурах бичгийн *Figure 4.27*-ийн жишээ (`7, 12, 19, 3, 18, 4, 2, 6, 15, 8`) өгөгдлүүд бэлэн байх ба **Эхлүүлэх** товчийг дарж туршина.
-
-## Жишээ: Figure 4.27
-
-![Figure 4.27](image-1.png)
+> **Тэмдэглэл:** Ажиллуулмагц үндсэн сурах бичгийн *Figure 4.27*-ийн жишээ (`7, 12, 19, 3, 18, 4, 2, 6, 15, 8`) өгөгдлүүд бэлэн байх ба **Эхлүүлэх** товчийг дарж туршина.
 
 ## Юу хийж болох вэ
 
@@ -76,6 +74,10 @@ cd OperatingSystems-F.CSM302
 
 ## Жишээ
 
+Үндсэн сурах бичгийн **Figure 4.27** дахь жишээ
+
+![Figure 4.27](docs/image-1.png)
+
 | Жишээ | Оролт | Хүлээгдэх үр дүн |
 | :--- | :--- | :--- |
 | **Номын Figure 4.27** | `7, 12, 19, 3, 18, 4, 2, 6, 15, 8` | `2, 3, 4, 6, 7, 8, 12, 15, 18, 19` |
@@ -97,7 +99,7 @@ cd OperatingSystems-F.CSM302
 
 ## Хэрхэн ажилладаг
 
-![Урсгал](image-2.png)
+![Урсгал](docs/image-2.png)
 
 - **Хуваалт:** half = ⌊n/2⌋; сондгой үед 2-р хэсэг 1 элементээр том.
 - **Sorting worker:** Бүр Insertion sort-ыг алхам бүрээр (`swap`) `step` мессежээр дүрслэлд илгээнэ.
@@ -105,3 +107,44 @@ cd OperatingSystems-F.CSM302
 - **Pause/Resume:** Worker бүр алхам бүрийн өмнө `waitIfPaused()` шалгадаг тул ажиллагаа бодитоор зогсоно.
 - **Reset/RunId:** Reset эсвэл шинэ ажиллуулалтад `runId` нэмэгдэж, хуучин worker-ийн хоцорсон мессежийг үл тооно.
 - **Blob URL:** Worker-ийг Blob URL-аар үүсгэдэг тул `file://`-ээр шууд нээж ажиллуулахад ч ямар нэгэн алдаагүй ажиллана.
+
+### Сурах бичгийн шаардлагатай тулгалт
+
+| Шаардлага (Project 2) | Хэрэгжилт |
+| :--- | :--- |
+| Жагсаалтыг хоёр тэнцүү хэсэгт хуваах | `start()` дотор `half`-аар хуваана |
+| Хоёр тусдаа sorting thread | 2 Web Worker (`sortWorkerMain`) |
+| Merging thread хоёр хэсгийг нэгтгэх | 3-р Web Worker (`mergeWorkerMain`) |
+| Thread бүрт өөрийн хэсгийг параметрээр дамжуулах | `postMessage({type:"sort", workerId, values})` |
+| Parent бүх sorting thread дууссаны дараа үр дүнг гаргах | UI thread "Эцсийн үр дүн"-г гаргаж, шалгана |
+
+> **Хэрэгжилтийн ялгаа:** Ном глобал массивыг thread-үүд хуваалцахыг санал болгосон. Web Worker өгөгдлийг анхдагчаар хуваалцдаггүй тул хуваалцсан массивын оронд `postMessage`-ээр хэсгийг дамжуулж, үр дүнг буцаан авна. Thread бүр зөвхөн өөрийн хэсэгтэй ажилладаг тул data race үүсэхгүй.
+
+## Тест
+
+Тестийн өгөгдөл: [`tests/test-cases.md`](tests/test-cases.md) (зөв эрэмбэлэлт, буруу оролт, UI удирдлагын тест).
+
+## Бүтэц
+
+​```
+src/        index.html, styles.css, app.js, workers-code.js
+tests/      test-cases.md
+docs/       Тайлан, Manual, зургууд
+ 
+​```
+
+## Мэдэгдэж буй хязгаарлалт
+
+- Хамгийн ихдээ 200 элемент, зөвхөн бүхэл тоо.
+- `Шууд` горимд UI царцахгүйн тулд завсрын алхмын зарим хэсгийг л дүрсэлнэ.
+- "Нийт хугацаа" нь анимацийн хугацааг агуулах тул алгоритмын цэвэр гүйцэтгэлийн хэмжүүр биш.
+
+## Баримт бичиг
+
+
+
+## Source
+
+- **Workflow диаграм (`docs/image-2.png`):** Parent thread, 2 sorting worker, merge worker хоорондын урсгалыг paint дээр ерөнхийд нь зурсан. Урсгалын дүрслэлийг ChatGPT-ээр гаргуулсан.
+- **Бэлэн код, сан:** гадны сан, framework ашиглаагүй (цэвэр HTML, CSS, JavaScript).
+- **Ном:** A. Silberschatz, P. B. Galvin, G. Gagne, *Operating System Concepts*, 10th Edition, Chapter 4, Programming Project 2.
